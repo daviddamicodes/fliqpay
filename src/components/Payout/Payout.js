@@ -1,19 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 // import countryOptions from './countryData';
 import DropdownCountriesSelection from './Dropdown';
+import { DetailsContext } from '../DetailsContext';
 
 const Payout = () => {
 
+    // const [state, setState] = useContext(DetailsContext)
     const [state, setState] = useState({
         youSend: '',
         recipientGets: ''
     })
+    
 
     const handleInput = e => {
-        setState({
-            youSend: e.target.value
-        })
+        const {name, value} = e.target
+        console.log(name, value)
+        // setState({
+        //     [name]: value
+        // })
     }
+
+    // console.log(state)
 
     return (
         <div class="bg-gray-50 h-screen flex items-center justify-center">
@@ -22,8 +30,8 @@ const Payout = () => {
                 <h4 class="font-semibold text-md mb-1 text-purple-900">One-time payout</h4>
                 <h4 class="text-xs mb-4 text-purple-700 text-opacity-70">Send money internationally</h4>
                 <div class="flex relative">
-                    <input name="you-send" value={state.youSend} onChange={handleInput} type="text" required class="h-16 w-9/12 pt-5 px-3.5 text-lg rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autocomplete="off" placeholder="" />
-                    <label htmlFor="you-send" class="absolute h-full w-9/12 px-3.5 pt-3 pointer-events-none text-xs text-gray-500">You Send</label>
+                    <input name="youSend" value={state.youSend} onChange={handleInput} type="text" required class="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autocomplete="off" placeholder="" />
+                    <label htmlFor="youSend" class="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-500">You Send</label>
                     {/* <DropdownCountriesSelection /> */}
                     <select name="" id="" class="flex-1 p-2">
                         <option value="">USD</option>
@@ -50,8 +58,8 @@ const Payout = () => {
                     </div>
                 </div>
                 <div class="flex">
-                    <input name="recipient-gets" value={state.recipientGets} type="text" required class="h-16 w-9/12 pt-5 px-3.5 text-lg rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autocomplete="off" placeholder="" />
-                    <label htmlFor="recipient-gets" class="absolute h-full w-9/12 px-3.5 pt-3 pointer-events-none text-xs text-gray-500">Recipient gets</label>
+                    <input name="recipientGets" value={state.recipientGets} onChange={handleInput} type="text" required class="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autocomplete="off" placeholder="" />
+                    <label htmlFor="recipientGets" class="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-500">Recipient gets</label>
                     <select name="" id="" class="flex-1 p-2 bg-gray-200 text-purple-900 rounded-br-sm rounded-tr-sm">
                         <option value="">USD</option>
                         <option value="">EUR</option>
@@ -60,7 +68,8 @@ const Payout = () => {
                 </div>
                 <div class="flex mt-6">
                     <button class="font-medium text-xs py-2.5 px-6 bg-white text-purple-700 border border-purple-700 mr-4 flex-grow rounded-md">Compare Rates</button>
-                    <button class="font-medium text-xs py-2.5 px-6 bg-purple-700 text-white flex-grow rounded-md">Continue</button>
+                    {/* <button to="/recipient" class="font-medium text-xs py-2.5 px-6 bg-purple-700 text-white flex-grow rounded-md">Continue</button> */}
+                    <Link class="font-medium text-xs py-2.5 px-6 bg-purple-700 text-white flex items-center justify-center flex-grow rounded-md" to="/recipient">Continue</Link>
                 </div>
             </div>
         </div>
