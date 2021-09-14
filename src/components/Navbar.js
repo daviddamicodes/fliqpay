@@ -19,10 +19,26 @@ const Navbar = () => {
                         <div class="h-2 w-2 bg-gray-500 rounded-lg absolute -top-0.5 left-1/3" />
                     </div>
                     <ul class="flex">
-                        <li class="mr-20 font-medium text-sm">Amount</li>
-                        <li class="mr-20 font-medium text-sm">Recipient</li>
-                        <li class="mr-20 font-medium text-sm">Review</li>
-                        <li class="font-medium text-sm">Pay</li>
+                        <li class="mr-20 font-medium text-sm">
+                            <NavLink exact to="/">
+                                Amount
+                            </NavLink>
+                        </li>
+                        <li class="mr-20 font-medium text-sm">
+                            <NavLink exact to="/recipient">
+                                Recipient
+                            </NavLink>
+                        </li>
+                        <li class="mr-20 font-medium text-sm">
+                            <NavLink exact to="/review">
+                                Review
+                            </NavLink>
+                        </li>
+                        <li class="font-medium text-sm">
+                            <NavLink exact to="/review">
+                                Pay
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
                 <VscChromeClose class="text-2xl text-gray-400" />

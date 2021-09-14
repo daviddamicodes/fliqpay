@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
-import { DetailsContext } from '../DetailsContext';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-const ReviewTransfer = ({state}) => {
+const ReviewTransfer = () => {
 
-    // const [state] = useContext(DetailsContext);
-
-    console.log(state)
+    const state = useSelector((state) => state.details);
 
     return (
         <div class="bg-gray-50 h-screen flex items-center justify-center">
@@ -18,19 +16,19 @@ const ReviewTransfer = ({state}) => {
                     </div>
                     <div class="flex justify-between items-end mb-4">
                         <h4 class="font-medium text-xs text-gray-400 leading-none">Total fees (included)</h4>
-                        <h4 class="font-medium text-xs text-gray-700 text-right leading-none">3.69 USD</h4>
+                        <h4 class="font-medium text-xs text-gray-700 text-right leading-none">{state.transferFee} USD</h4>
                     </div>
                     <div class="flex justify-between items-end mb-4">
                         <h4 class="font-medium text-xs text-gray-400 leading-none">Amount we’ll convert</h4>
-                        <h4 class="font-medium text-xs text-gray-700 text-right leading-none">996.31 USD</h4>
+                        <h4 class="font-medium text-xs text-gray-700 text-right leading-none">{state.convertedAmount} USD</h4>
                     </div>
                     <div class="flex justify-between items-end mb-4">
                         <h4 class="font-medium text-xs text-gray-400 leading-none">Guaranteed rate</h4>
-                        <h4 class="font-medium text-xs text-gray-700 text-right leading-none">1.10289</h4>
+                        <h4 class="font-medium text-xs text-gray-700 text-right leading-none">{state.guaranteedRate}</h4>
                     </div>
                     <div class="flex justify-between items-end mb-4">
                         <h4 class="font-medium text-xs text-gray-400 leading-none">Johnny gets</h4>
-                        <h4 class="font-semibold text-md text-gray-700 text-right leading-none">1,248.63 EUR</h4>
+                        <h4 class="font-semibold text-md text-gray-700 text-right leading-none">{state.recipientGets} EUR</h4>
                     </div>
                 </div>
                 <div class="py-8 border-t-2 border-gray-200">
@@ -44,7 +42,7 @@ const ReviewTransfer = ({state}) => {
                     </div>
                     <div class="flex justify-between items-end mb-4">
                         <h4 class="font-medium text-xs text-gray-400 leading-none">IBAN / Account number</h4>
-                        <h4 class="font-medium text-xs text-gray-700 text-right leading-none">DE898919013902102</h4>
+                        <h4 class="font-medium text-xs text-gray-700 text-right leading-none">{state.iban}</h4>
                     </div>
                 </div>
                 <button class="w-full font-medium text-xs py-2.5 px-6 bg-green-500 text-white flex-grow rounded-md">Continue</button>

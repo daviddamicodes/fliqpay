@@ -1,17 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { DetailsContext } from '../DetailsContext';
+import { useDispatch } from 'react-redux';
+import { setDetails } from '../../redux/actions/detailsActions';
 
 const RecipientPage = ({}) => {
 
-    // const [state, setState] = useContext(DetailsContext)
+    const [input, setInput] = useState({
+        email: '',
+        fullName: '',
+        iban: '',
+    })
+
+    const dispatch = useDispatch()
 
     const handleInput = e => {
-        const {name, value} = e.target
-        // setState({
-        //     // [e.target.name]: e.target.value
-        //     [name]: value
-        // })
+        const {name, value} = e.target;
+        setInput({
+            ...input, 
+            [name]: value
+        })
+    }
+
+    const handleDispatch = () => {
+        dispatch(setDetails(input))
     }
 
     return (
@@ -34,7 +45,7 @@ const RecipientPage = ({}) => {
                     <label htmlFor="iban" class="pointer-events-none text-xs text-gray-500 mb-1">IBAN</label>
                     <input name="iban" type="text" onChange={handleInput} type="text" required class="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autocomplete="off" placeholder="" />
                 </div>
-                <Link to="/review"><button class="w-full font-medium text-xs py-2.5 px-6 bg-purple-700 text-white flex-grow rounded-md mt-2">Continue</button></Link>
+                <Link to="/review"><button class="w-full font-medium text-xs py-2.5 px-6 bg-purple-700 text-white flex-grow rounded-md mt-2" onClick={handleDispatch}>Continue</button></Link>
             </div>
         </div>
     )
