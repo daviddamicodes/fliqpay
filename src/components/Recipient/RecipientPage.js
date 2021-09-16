@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setDetails } from '../../redux/actions/detailsActions';
+import { render } from '@testing-library/react';
 
 const RecipientPage = ({}) => {
 
@@ -9,6 +10,7 @@ const RecipientPage = ({}) => {
         email: '',
         fullName: '',
         iban: '',
+        disabled: true,
     })
 
     const dispatch = useDispatch()
@@ -21,9 +23,17 @@ const RecipientPage = ({}) => {
         })
     }
 
+
+    // const handleValidation = () => {
+    //     if (input.iban.length > 0) {
+    //         setInput({...input, disabled: false})
+    //     }
+    // }
+    
     const handleDispatch = () => {
         dispatch(setDetails(input))
     }
+
 
     return (
         <div className="bg-gray-50 h-screen flex items-center justify-center">
@@ -45,7 +55,8 @@ const RecipientPage = ({}) => {
                     <label htmlFor="iban" className="pointer-events-none text-xs text-gray-500 mb-1">IBAN</label>
                     <input name="iban" type="text" onChange={handleInput} type="text" required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
                 </div>
-                <Link to="/review"><button className="w-full font-medium text-xs py-2.5 px-6 bg-purple-700 text-white flex-grow rounded-md mt-2" onClick={handleDispatch}>Continue</button></Link>
+                {/* <Link to="/review"><button className={input.disabled ? "w-full font-medium text-xs py-2.5 px-6 bg-purple-400 text-white flex-grow rounded-md mt-2" : "w-full font-medium text-xs py-2.5 px-6 bg-purple-700 text-white flex-grow rounded-md mt-2"} onClick={handleDispatch} disabled={input.disabled}>Continue</button></Link> */}
+                <Link to="/review"><button className={`w-full font-medium text-xs py-2.5 px-6 ${input.disabled ? "bg-purple-400" : "bg-purple-700"} text-white flex-grow rounded-md mt-2`} onClick={handleDispatch} disabled={input.disabled}>Continue</button></Link>
             </div>
         </div>
     )
