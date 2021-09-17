@@ -140,7 +140,7 @@ const Payout = () => {
                 <h4 className="font-semibold text-md mb-1 text-purple-900">One-time payout</h4>
                 <h4 className="text-xs mb-4 text-purple-700 text-opacity-70">Send money internationally</h4>
                 <div className="flex relative">
-                    <input name="youSend" type="number" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="youSend" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
                     <label htmlFor="youSend" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-500">You Send</label>
                     <select name="fromCurrency" value={input.fromCurrency} id="" onChange={handleSelect} className="flex-1 p-2 bg-gray-200 text-purple-900 font-medium rounded-br-sm rounded-tr-sm">
                         {

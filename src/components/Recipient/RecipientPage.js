@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setDetails } from '../../redux/actions/detailsActions';
 
-const RecipientPage = ({}) => {
+const RecipientPage = () => {
 
     const [input, setInput] = useState({
         email: '',
@@ -56,11 +56,11 @@ const RecipientPage = ({}) => {
                 </div>
                 <div className="flex flex-col mb-4">
                     <label htmlFor="email" className="pointer-events-none text-xs text-gray-500 mb-1">Their email (optional)</label>
-                    <input name="email" type="email" onChange={handleInput} type="text" required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="email" type="email" onChange={handleInput} required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
                 </div>
                 <div className="flex flex-col mb-4">
                     <label htmlFor="fullName" className="pointer-events-none text-xs text-gray-500 mb-1">Full name of the account holder</label>
-                    <input name="fullName" type="text" onChange={handleInput} type="text" required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="fullName" type="text" onChange={handleInput} required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
                 </div>
                 <h4 className="font-semibold text-sm mb-4 text-purple-900">Bank details</h4>
                 <div className="flex flex-col mb-4">
@@ -69,14 +69,14 @@ const RecipientPage = ({}) => {
                         <button toggle={toggle} class={toggle ? "text-xs font-normal text-gray-700 bg-white px-3 py-3 transition-all duration-200" : "text-xs font-semibold text-purple-900 bg-white px-3 py-3 border-b-2 border-purple-900 transition-all duration-200"} onClick={handleToggle}>Outside Europe</button>
                     </div>
                     <label htmlFor="ibanAcct" className="pointer-events-none text-xs text-gray-500 mb-1">IBAN / Account Number</label>
-                    <input name="ibanAcct" type="text" onChange={handleIbanInput} type="text" required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="01234567891" />
+                    <input name="ibanAcct" type="text" onChange={handleIbanInput} required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="01234567891" />
                         {
                             toggle ? (
                                 <></>
                             ) : (
                                 <div className="flex flex-col">
                                     <label htmlFor="swiftBic" className="pointer-events-none text-xs text-gray-500 mb-1">SWIFT / BIC code</label>
-                                    <input name="swiftBic" type="text" onChange={handleIbanInput} type="text" required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900 mb-3" autoComplete="off" placeholder="BUKBGB22" />
+                                    <input name="swiftBic" type="text" onChange={handleIbanInput} required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900 mb-3" autoComplete="off" placeholder="BUKBGB22" />
                                 </div>
                             )
                             
