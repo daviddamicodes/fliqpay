@@ -63,6 +63,7 @@ const Payout = () => {
 
     useEffect(() => {
         getRatesData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [input.fromCurrency, input.toCurrency])
     
     
