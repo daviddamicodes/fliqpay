@@ -64,27 +64,6 @@ const Payout = () => {
     useEffect(() => {
         getRatesData()
     }, [input.fromCurrency, input.toCurrency])
-
-    // const getExchangeRates = async () => {
-    //     const url = (`https://api.exchangerate.host/latest?base=${input.fromCurrency}`);
-    //     const response = await fetch(url);
-    //     const responseData = await response.json();
-    //     console.log(responseData)
-    //     const newRates = responseData.rates;
-    //     setInput({...input,
-    //         currenciesKeys2: Object.keys(newRates),
-    //         exchangeRates:  Object.values(newRates),
-    //     })
-    // }
-    
-    // useEffect(() => {
-    //     getExchangeRates();
-    //     // console.log(input.fromCurrency)
-    //     // console.log(input.toCurrency)
-    //     const index = input.currenciesKeys.findIndex(element => element === (input.toCurrency))
-    //     setInput({...input, conversionRate: input.exchangeRates[index]})
-    //     console.log(input.exchangeRates[index])
-    // }, [input.fromCurrency, input.toCurrency])
     
     
     const handleSelect = (e) => {
