@@ -9,19 +9,6 @@ import { DetailsProvider } from './components/DetailsContext';
 
 function App() {
 
-  // const [state, setState] = useState({
-  //   youSend: '',
-  //   recipientGets: '',
-  //   fromCurrency: '',
-  //   toCurrency: '',
-  //   transferFee: '',
-  //   convertedAmount: '',
-  //   grh: '',
-  //   email: '',
-  //   fullName: '',
-  //   iban: '',
-  // })
-
   return (
     <Router>
       <Navbar />

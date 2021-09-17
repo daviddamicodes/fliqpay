@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import countryOptions from './countryData';
-// import DropdownCountriesSelection from './Dropdown';
-// import { DetailsContext } from '../DetailsContext';
 import { setPayout } from '../../redux/actions/detailsActions';
 
 const Payout = () => {
@@ -14,11 +11,10 @@ const Payout = () => {
         transferFee: '',
         convertedAmount: '',
         guaranteedRate: '',
-        disabled: true,
-        fromCurrency: '',
-        toCurrency: '',
+        payoutDisabled: true,
+        fromCurrency: 'USD',
+        toCurrency: 'EUR',
         currenciesKeys: [],
-        currenciesKeys2: [],
         conversionRate: '1',
         exchangeRates: [],
     })
@@ -30,41 +26,56 @@ const Payout = () => {
         setInput({
             ...input, 
             [name]: value
-        })
+        });
     }
 
+    // const getRatesData = async () => {
+    //     const url = `https://api.exchangerate.host/latest`
+    //     // const url = `https://api.exchangerate.host/latest?base=${input.fromCurrency}`
+    //     const response = await fetch(url);
+    //     const responseData = await response.json();
+    //     const currData = responseData.rates;
+    //     setInput({...input, 
+    //         currenciesKeys: Object.keys(currData), 
+    //         exchangeRates:  Object.values(currData),
+    //         fromCurrency: Object.keys(currData)[0], 
+    //         // toCurrency: Object.keys(currData)[(Math.floor(Math.random() * Object.keys(currData).length))]
+    //         toCurrency: Object.keys(currData)[15]
+    //     })
+    // }
+
     const getRatesData = async () => {
-        const url = `https://api.exchangerate.host/latest`
-        // const url = `https://api.exchangerate.host/latest?base=${input.fromCurrency}`
+        // const url = `https://api.exchangerate.host/latest`
+        const url = `https://api.exchangerate.host/latest?base=${input.fromCurrency}`
         const response = await fetch(url);
         const responseData = await response.json();
         const currData = responseData.rates;
+        const index = (input.currenciesKeys).findIndex(element => element === (input.toCurrency));
         setInput({...input, 
             currenciesKeys: Object.keys(currData), 
             exchangeRates:  Object.values(currData),
-            // fromCurrency: responseData.base,
-            fromCurrency: Object.keys(currData)[0], 
-            // toCurrency: Object.keys(currData)[(Math.floor(Math.random() * Object.keys(currData).length))]
-            toCurrency: Object.keys(currData)[15]
+            fromCurrency: input.fromCurrency, 
+            toCurrency: input.toCurrency,
+            conversionRate: input.exchangeRates[index]
         })
     }
-
+    
 
     useEffect(() => {
         getRatesData()
-    }, [])
+    }, [input.fromCurrency, input.toCurrency])
 
-    const getExchangeRates = async () => {
-        const url = (`https://api.exchangerate.host/latest?base=${input.fromCurrency}`);
-        const response = await fetch(url);
-        const responseData = await response.json();
-        console.log(responseData)
-        const newRates = responseData.rates;
-        setInput({...input,
-            currenciesKeys2: Object.keys(newRates),
-            exchangeRates:  Object.values(newRates),
-        })
-    }
+    // const getExchangeRates = async () => {
+    //     const url = (`https://api.exchangerate.host/latest?base=${input.fromCurrency}`);
+    //     const response = await fetch(url);
+    //     const responseData = await response.json();
+    //     console.log(responseData)
+    //     const newRates = responseData.rates;
+    //     setInput({...input,
+    //         currenciesKeys2: Object.keys(newRates),
+    //         exchangeRates:  Object.values(newRates),
+    //     })
+    // }
     
     // useEffect(() => {
     //     getExchangeRates();
@@ -94,10 +105,11 @@ const Payout = () => {
     // }
 
     const handleRates = () => {
-        const valNum = input.youSend.length === 0 ? 1 : parseInt(input.youSend)
+        const valNum = input.youSend.length === 0 ? 1 : parseFloat(input.youSend)
         const fee = (valNum * 0.00369).toFixed(2);
-        const atConvert = (valNum - fee).toFixed(2);
-        const amtWrate = atConvert * parseInt(input.conversionRate);
+        const atConvert = parseFloat((valNum - fee).toFixed(2));
+        const amtWrate = atConvert * parseFloat(input.conversionRate);
+        console.log(atConvert)
         console.log(amtWrate)
         console.log(input.conversionRate)
         const grHour = 1.14989
@@ -109,7 +121,7 @@ const Payout = () => {
                 convertedAmount: atConvert,
                 guaranteedRate: grHour,
                 recipientGets: totalAmount,
-                disabled: false
+                payoutDisabled: false
             })
         }
         // if (input.youSend !== "") {setInput(...input, input.disabled = false)}
@@ -123,9 +135,8 @@ const Payout = () => {
 
 
     return (
-        <div className="bg-gray-50 h-screen flex items-center justify-center">
-            {/* <div className="bg-gray-200 w-4/12 rounded-lg px-6 py-8"> */}
-            <div className="bg-white w-4/12 rounded-lg px-6 py-8">
+        <div className="bg-gray-50 h-screen flex items-center justify-center pt-20">
+            <div className="bg-white w-470 rounded-lg px-6 py-8">
                 <h4 className="font-semibold text-md mb-1 text-purple-900">One-time payout</h4>
                 <h4 className="text-xs mb-4 text-purple-700 text-opacity-70">Send money internationally</h4>
                 <div className="flex relative">
@@ -170,7 +181,7 @@ const Payout = () => {
                 </div>
                 <div className="flex mt-6">
                     <button className="font-medium text-xs py-2.5 px-6 bg-white text-purple-700 border border-purple-700 mr-4 flex-grow rounded-md" onClick={handleRates}>Compare Rates</button>
-                    <Link to="/recipient" className=" flex items-center justify-center flex-grow"><button className={`font-medium text-xs py-2.5 px-6 w-full text-white rounded-md ${input.disabled ? "bg-purple-400" : "bg-purple-700"}`} onClick={handleDispatch} disabled={input.disabled}>Continue</button></Link>
+                    <Link to="/recipient" className=" flex items-center justify-center flex-grow"><button className={`font-medium text-xs py-2.5 px-6 w-full text-white rounded-md ${input.payoutDisabled ? "bg-purple-400" : "bg-purple-700"}`} onClick={handleDispatch} disabled={input.payoutDisabled}>Continue</button></Link>
                 </div>
             </div>
         </div>

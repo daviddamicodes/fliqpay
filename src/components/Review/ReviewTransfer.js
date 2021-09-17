@@ -5,9 +5,13 @@ const ReviewTransfer = () => {
 
     const state = useSelector((state) => state.details);
 
+    const paymentAlert = () => {
+        alert("Payment Successful")
+    }
+
     return (
-        <div className="bg-gray-50 h-screen flex items-center justify-center">
-            <div className="bg-white w-4/12 rounded-lg px-6 py-8">
+        <div className="bg-gray-50 h-screen flex items-center justify-center pt-20">
+            <div className="bg-white w-470 rounded-lg px-6 py-8">
                 <h4 className="font-semibold text-md mb-4 pb-2 border-b-2 border-gray-200 text-purple-900">Review details of your transfer</h4>
                 <div className="py-3">
                     <div className="flex justify-between items-end mb-4">
@@ -42,10 +46,18 @@ const ReviewTransfer = () => {
                     </div>
                     <div className="flex justify-between items-end mb-4">
                         <h4 className="font-medium text-xs text-gray-400 leading-none">IBAN / Account number</h4>
-                        <h4 className="font-medium text-xs text-gray-700 text-right leading-none">{state.iban}</h4>
+                        <h4 className="font-medium text-xs text-gray-700 text-right leading-none">{state.ibanAcct}</h4>
                     </div>
+                    { 
+                        state.swiftBic.length > 1 ? (
+                            <div className="flex justify-between items-end mb-4">
+                                <h4 className="font-medium text-xs text-gray-400 leading-none">SWIFT / BIC code</h4>
+                                <h4 className="font-medium text-xs text-gray-700 text-right leading-none">{state.swiftBic}</h4>
+                            </div>
+                        ) : <></>
+                    }
                 </div>
-                <button className="w-full font-medium text-xs py-2.5 px-6 bg-green-500 text-white flex-grow rounded-md">Continue</button>
+                <button className="w-full font-medium text-xs py-2.5 px-6 bg-green-500 text-white flex-grow rounded-md" onClick={paymentAlert}>Continue</button>
             </div>
         </div>
     )

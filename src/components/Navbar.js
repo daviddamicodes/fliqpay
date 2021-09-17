@@ -1,35 +1,38 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { VscChromeClose } from 'react-icons/vsc';
-import fliqpayLogo from '../images/fliqpay-logo.png'
+import fliqpayLogo from '../images/fliqpay-logo.png';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+
+    const state = useSelector((state) => state.details)
     return (
         <nav className="bg-white flex justify-center items-center w-screen h-20 fixed z-20">
-            <div className="flex justify-between items-center w-3/5 h-full">
+            <div className={`flex justify-between items-center lg:w-3/5 w-full h-full px-6`}>
                 <div className="">
                     <Link to="/" className="font-bold text-2xl flex items-center">
                         <img src={fliqpayLogo} alt="Fliqpay Logo" className="h-9 mr-1.5" />
                         <h1 className="">pay</h1>
                     </Link>
                 </div>
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center px-4">
                     <div className="w-11/12 h-0.5 bg-gray-200 mb-3 relative">
-                        <div className="w-4/12 h-0.5 bg-gradient-to-r from-purple-700 to-gray-500 mb-3 absolute top-0 left-0" />
-                        <div className="h-2 w-2 bg-gray-500 rounded-lg absolute -top-0.5 left-1/3" />
+                        <div className={` ${state.payoutDisabled ? "w-0" : "w-4/12"} h-0.5 bg-gradient-to-r from-purple-700 to-gray-500 mb-3 absolute top-0 left-0 transition-all duration-500 ease-in-out`} />
+                        <div className={`h-2 w-2 bg-gray-500 rounded-lg absolute -top-0.5  ${state.payoutDisabled ? "left-0" : "left-1/3"} transition-all duration-500 ease-in-out`} />
                     </div>
                     <ul className="flex">
-                        <li className="mr-20 font-medium text-sm">
+                        <li className="mr-5 sm:mr-10 md:mr-20 font-medium text-sm">
                             <NavLink exact to="/">
                                 Amount
                             </NavLink>
                         </li>
-                        <li className="mr-20 font-medium text-sm">
+                        <li className="mr-5 sm:mr-10 md:mr-20 font-medium text-sm">
                             <NavLink exact to="/recipient">
                                 Recipient
                             </NavLink>
                         </li>
-                        <li className="mr-20 font-medium text-sm">
+                        <li className="mr-5 sm:mr-10 md:mr-20 font-medium text-sm">
                             <NavLink exact to="/review">
                                 Review
                             </NavLink>
