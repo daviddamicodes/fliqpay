@@ -57,7 +57,7 @@ const ReviewTransfer = () => {
                         ) : <></>
                     }
                 </div>
-                <button className="w-full font-medium text-xs py-2.5 px-6 bg-green-500 text-white flex-grow rounded-md" onClick={paymentAlert}>Continue</button>
+                <button className="w-full font-medium text-xs py-3 px-6 bg-green-500 text-white flex-grow rounded-md" onClick={paymentAlert}>Continue</button>
             </div>
         </div>
     )

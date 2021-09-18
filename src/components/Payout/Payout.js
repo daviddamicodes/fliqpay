@@ -17,6 +17,7 @@ const Payout = () => {
         currenciesKeys: [],
         conversionRate: '1',
         exchangeRates: [],
+        displayRates: false,
     })
 
     const dispatch = useDispatch()
@@ -101,7 +102,8 @@ const Payout = () => {
                 convertedAmount: atConvert,
                 guaranteedRate: grHour,
                 recipientGets: totalAmount,
-                payoutDisabled: false
+                payoutDisabled: false,
+                displayRates: true,
             })
         }
         // if (input.youSend !== "") {setInput(...input, input.disabled = false)}
@@ -118,50 +120,62 @@ const Payout = () => {
         <div className="bg-gray-50 h-screen flex items-center justify-center pt-20">
             <div className="bg-white w-470 rounded-lg px-6 py-8">
                 <h4 className="font-semibold text-md mb-1 text-purple-900">One-time payout</h4>
-                <h4 className="text-xs mb-4 text-purple-700 text-opacity-70">Send money internationally</h4>
+                <h4 className="text-xs mb-4 text-purple-900 text-opacity-70">Send money internationally</h4>
                 <div className="flex relative">
-                    <input name="youSend" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="youSend" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
                     <label htmlFor="youSend" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-500">You Send</label>
-                    <select name="fromCurrency" value={input.fromCurrency} id="" onChange={handleSelect} className="flex-1 p-2 bg-gray-200 text-purple-900 font-medium rounded-br-sm rounded-tr-sm">
+                    <select name="fromCurrency" value={input.fromCurrency} id="" onChange={handleSelect} className="flex-1 p-2 bg-gray-200 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
                         {
                             input.currenciesKeys.map(currency => 
-                                <option value={currency} key={currency} class="">{currency}</option>
+                                <option value={currency} key={currency} class="">
+                                    {currency}
+                                </option>
                             )
                         }
                     </select>
                 </div>
                 <div className="px-2 py-2 relative">
-                    <div className="absolute top-0 left-4 h-full w-0.5 bg-gray-200"></div>
-                    <div className="flex items-center mb-2">
-                        <div className="bg-gray-200 text-gray-400 text-xs h-5 w-5 rounded-full flex items-center justify-center mr-2 z-10">-</div>
-                        <h4 className="font-medium text-xs text-gray-400 w-3/12 z-10">{input.transferFee} {input.fromCurrency}</h4>
-                        <span className="font-medium text-xs text-gray-400">Transfer fee</span>
-                    </div>
-                    <div className="flex items-center mb-2">
-                        <div className="bg-gray-200 text-gray-400 text-xs h-5 w-5 rounded-full flex items-center justify-center mr-2 z-10">=</div>
-                        <h4 className="font-medium text-xs text-gray-400 w-3/12 z-10">{input.convertedAmount} {input.toCurrency}</h4>
-                        <span className="font-medium text-xs text-gray-400">Amount we'll convert</span>
-                    </div>
-                    <div className="flex items-center">
-                        <div className="bg-gray-200 text-gray-400 text-xs h-5 w-5 rounded-full flex items-center justify-center mr-2 z-10">x</div>
-                        <h4 className="font-medium text-xs text-purple-900 w-3/12 z-10">{input.guaranteedRate}</h4>
-                        <span className="font-medium text-xs text-purple-900">Guaranteed rate (1hr)</span>
-                    </div>
+                    {
+                        input.displayRates ? (
+                            <>
+                                <div className="absolute top-0 left-4 h-full w-0.5 bg-gray-200"></div>
+                                <div className="flex items-center mb-2">
+                                    <div className="bg-gray-200 text-gray-400 text-xs h-5 w-5 rounded-full flex items-center justify-center mr-2 z-10">-</div>
+                                    <h4 className="font-medium text-xs text-gray-400 w-3/12 z-10">{input.transferFee} {input.fromCurrency}</h4>
+                                    <span className="font-medium text-xs text-gray-400">Transfer fee</span>
+                                </div>
+                                <div className="flex items-center mb-2">
+                                    <div className="bg-gray-200 text-gray-400 text-xs h-5 w-5 rounded-full flex items-center justify-center mr-2 z-10">=</div>
+                                    <h4 className="font-medium text-xs text-gray-400 w-3/12 z-10">{input.convertedAmount} {input.toCurrency}</h4>
+                                    <span className="font-medium text-xs text-gray-400">Amount we'll convert</span>
+                                </div>
+                                <div className="flex items-center">
+                                    <div className="bg-gray-200 text-gray-400 text-xs h-5 w-5 rounded-full flex items-center justify-center mr-2 z-10">x</div>
+                                    <h4 className="font-medium text-xs text-purple-900 w-3/12 z-10">{input.guaranteedRate}</h4>
+                                    <span className="font-medium text-xs text-purple-900">Guaranteed rate (1hr)</span>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="h-1"></div>
+                        )
+                    }
                 </div>
-                <div className="flex">
-                    <input name="recipientGets" value={input.recipientGets} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                <div className="flex relative">
+                    <input name="recipientGets" value={input.recipientGets} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
                     <label htmlFor="recipientGets" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-500">Recipient gets</label>
-                    <select name="toCurrency" value={input.toCurrency} id="" onChange={handleSelect} className="flex-1 p-2 bg-gray-200 text-purple-900 font-medium rounded-br-sm rounded-tr-sm">
+                    <select name="toCurrency" value={input.toCurrency} id="" onChange={handleSelect} className="flex-1 p-2 bg-gray-200 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
                         {
                             input.currenciesKeys.map(currency => 
-                                <option value={currency} key={currency}>{currency}</option>
+                                <option value={currency} key={currency}>
+                                    {currency}
+                                </option>
                             )
                         }
                     </select>
                 </div>
                 <div className="flex mt-6">
-                    <button className="font-medium text-xs py-2.5 px-6 bg-white text-purple-700 border border-purple-700 mr-4 flex-grow rounded-md" onClick={handleRates}>Compare Rates</button>
-                    <Link to="/recipient" className=" flex items-center justify-center flex-grow"><button className={`font-medium text-xs py-2.5 px-6 w-full text-white rounded-md ${input.payoutDisabled ? "bg-purple-400" : "bg-purple-700"}`} onClick={handleDispatch} disabled={input.payoutDisabled}>Continue</button></Link>
+                    <button className="font-medium text-xs py-3 px-6 bg-white text-purple-700 border border-purple-700 mr-4 flex-grow rounded-md" onClick={handleRates}>Compare Rates</button>
+                    <Link to="/recipient" className=" flex items-center justify-center flex-grow"><button className={`font-medium text-xs py-3 px-6 w-full text-white rounded-md ${input.payoutDisabled ? "bg-purple-400" : "bg-purple-700"}`} onClick={handleDispatch} disabled={input.payoutDisabled}>Continue</button></Link>
                 </div>
             </div>
         </div>

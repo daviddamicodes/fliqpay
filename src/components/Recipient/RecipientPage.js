@@ -56,11 +56,11 @@ const RecipientPage = () => {
                 </div>
                 <div className="flex flex-col mb-4">
                     <label htmlFor="email" className="pointer-events-none text-xs text-gray-500 mb-1">Their email (optional)</label>
-                    <input name="email" type="email" onChange={handleInput} required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="email" type="email" onChange={handleInput} required className="h-9 w-5/5 px-3.5 text-xs rounded-lg focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
                 </div>
                 <div className="flex flex-col mb-4">
                     <label htmlFor="fullName" className="pointer-events-none text-xs text-gray-500 mb-1">Full name of the account holder</label>
-                    <input name="fullName" type="text" onChange={handleInput} required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="fullName" type="text" onChange={handleInput} required className="h-9 w-5/5 px-3.5 text-xs rounded-lg focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="" />
                 </div>
                 <h4 className="font-semibold text-sm mb-4 text-purple-900">Bank details</h4>
                 <div className="flex flex-col mb-4">
@@ -69,7 +69,7 @@ const RecipientPage = () => {
                         <button toggle={toggle} class={toggle ? "text-xs font-normal text-gray-700 bg-white px-3 py-3 transition-all duration-200" : "text-xs font-semibold text-purple-900 bg-white px-3 py-3 border-b-2 border-purple-900 transition-all duration-200"} onClick={handleToggle}>Outside Europe</button>
                     </div>
                     <label htmlFor="ibanAcct" className="pointer-events-none text-xs text-gray-500 mb-1">IBAN / Account Number</label>
-                    <input name="ibanAcct" type="text" onChange={handleIbanInput} required className="h-9 w-5/5 px-3.5 text-xs rounded-sm focus:outline-none border-gray-200 border-2 text-purple-900" autoComplete="off" placeholder="01234567891" />
+                    <input name="ibanAcct" type="text" onChange={handleIbanInput} required className="h-9 w-5/5 px-3.5 text-xs rounded-lg focus:outline-none border-gray-200 border-2 text-purple-900 mb-3" autoComplete="off" placeholder="01234567891" />
                         {
                             toggle ? (
                                 <></>
@@ -82,7 +82,7 @@ const RecipientPage = () => {
                             
                         }
                 </div>
-                <Link to="/review"><button className={`w-full font-medium text-xs py-2.5 px-6 ${input.disabled ? "bg-purple-400" : "bg-purple-700"} text-white flex-grow rounded-md mt-2`} onClick={handleDispatch} disabled={input.disabled}>Continue</button></Link>
+                <Link to="/review"><button className={`w-full font-medium text-xs py-3 px-6 ${input.disabled ? "bg-purple-400" : "bg-purple-700"} text-white flex-grow rounded-md mt-2`} onClick={handleDispatch} disabled={input.disabled}>Continue</button></Link>
             </div>
         </div>
     )
