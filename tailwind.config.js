@@ -5,7 +5,14 @@ module.exports = {
     extend: {
       width: {
         '470': '470px',
-        'mobile': '540px'
+        'mobile': '540px',
+      },
+      colors: {
+        'gray-1': '#F2F2F2',
+        'gray-bg': '#fbfbfb',
+        'light-blue': '#4406EC',
+        'mid-blue': '#4305EB',
+        'green-1': '#6FAE75',
       }
     },
   },

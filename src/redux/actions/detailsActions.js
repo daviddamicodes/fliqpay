@@ -13,3 +13,9 @@ export const setDetails = (details) => {
         payload: details,
     }
 }
+
+export const setPay = () => {
+    return {
+        type: ActionTypes.PAYOUT
+    }
+}

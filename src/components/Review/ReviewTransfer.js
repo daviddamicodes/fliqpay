@@ -1,22 +1,27 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setPay } from '../../redux/actions/detailsActions';
 
 const ReviewTransfer = () => {
 
     const state = useSelector((state) => state.details);
 
+    const dispatch = useDispatch()
+
     const paymentAlert = () => {
-        alert("Payment Successful")
+        dispatch(setPay())
+        // alert("Payment Successful")
     }
 
     return (
-        <div className="bg-gray-50 h-screen flex items-center justify-center pt-20">
+        <div className="bg-gray-50 h-screen flex justify-center pt-14">
             <div className="bg-white w-470 rounded-lg px-6 py-8">
-                <h4 className="font-semibold text-md mb-4 pb-2 border-b-2 border-gray-200 text-purple-900">Review details of your transfer</h4>
+                <h4 className="font-semibold text-md mb-4 pb-2 border-b-2 border-gray-50 text-purple-900">Review details of your transfer</h4>
                 <div className="py-3">
                     <div className="flex justify-between items-end mb-4">
                         <h4 className="font-medium text-xs text-gray-400 leading-none">You send</h4>
-                        <h4 className="font-semibold text-md text-gray-700 text-right leading-none">{state.youSend} {state.fromCurrency}</h4>
+                        <h4 className="font-semibold text-md text-gray-700 text-right leading-none" thousandSeparator={true}>{state.youSend} {state.fromCurrency}</h4>
                     </div>
                     <div className="flex justify-between items-end mb-4">
                         <h4 className="font-medium text-xs text-gray-400 leading-none">Total fees (included)</h4>
@@ -35,7 +40,7 @@ const ReviewTransfer = () => {
                         <h4 className="font-semibold text-md text-gray-700 text-right leading-none">{state.recipientGets} {state.toCurrency}</h4>
                     </div>
                 </div>
-                <div className="py-8 border-t-2 border-gray-200">
+                <div className="py-8 border-t-2 border-gray-50">
                     <div className="flex justify-between items-end mb-4">
                         <h4 className="font-medium text-xs text-gray-400 leading-none">Name</h4>
                         <h4 className="font-medium text-xs text-gray-700 text-right leading-none">{state.fullName}</h4>
@@ -57,7 +62,7 @@ const ReviewTransfer = () => {
                         ) : <></>
                     }
                 </div>
-                <button className="w-full font-medium text-xs py-3 px-6 bg-green-500 text-white flex-grow rounded-md" onClick={paymentAlert}>Continue</button>
+                <button className="w-full font-medium text-xs py-4 px-6 bg-green-1 text-white flex-grow rounded-md" onClick={paymentAlert}>Continue</button>
             </div>
         </div>
     )
