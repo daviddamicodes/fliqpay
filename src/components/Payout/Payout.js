@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setPayout } from '../../redux/actions/detailsActions';
-import NumberFormat from "react-number-format";
 
 const Payout = () => {
 
@@ -114,7 +113,7 @@ const Payout = () => {
                 <h4 className="font-semibold text-md mb-1 text-purple-900">One-time payout</h4>
                 <h4 className="text-xs mb-4 text-purple-900 text-opacity-70">Send money internationally</h4>
                 <div className="flex relative">
-                    <input name="youSend" value={input.youSend} thousandSeparator={true} onChange={handleInput} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="youSend" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
                     <label htmlFor="youSend" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">You Send</label>
                     <select name="fromCurrency" value={input.fromCurrency.toLocaleString()} id="" onChange={handleSelect} className="flex-1 p-2 bg-gray-1 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
                         {
