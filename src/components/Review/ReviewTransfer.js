@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setPay } from '../../redux/actions/detailsActions';
+import { numFormat } from '../NumberFormat';
 
 const ReviewTransfer = () => {
 
@@ -21,7 +22,7 @@ const ReviewTransfer = () => {
                 <div className="py-3">
                     <div className="flex justify-between items-end mb-4">
                         <h4 className="font-medium text-xs text-gray-400 leading-none">You send</h4>
-                        <h4 className="font-semibold text-md text-gray-700 text-right leading-none" thousandSeparator={true}>{state.youSend} {state.fromCurrency}</h4>
+                        <h4 className="font-semibold text-md text-gray-700 text-right leading-none" thousandSeparator={true}>{numFormat(state.youSend)} {state.fromCurrency}</h4>
                     </div>
                     <div className="flex justify-between items-end mb-4">
                         <h4 className="font-medium text-xs text-gray-400 leading-none">Total fees (included)</h4>
@@ -37,7 +38,7 @@ const ReviewTransfer = () => {
                     </div>
                     <div className="flex justify-between items-end mb-4">
                         <h4 className="font-medium text-xs text-gray-400 leading-none">Johnny gets</h4>
-                        <h4 className="font-semibold text-md text-gray-700 text-right leading-none">{state.recipientGets} {state.toCurrency}</h4>
+                        <h4 className="font-semibold text-md text-gray-700 text-right leading-none">{numFormat(state.recipientGets)} {state.toCurrency}</h4>
                     </div>
                 </div>
                 <div className="py-8 border-t-2 border-gray-50">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setPayout } from '../../redux/actions/detailsActions';
+import { numFormat } from '../NumberFormat';
 
 const Payout = () => {
 
