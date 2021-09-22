@@ -13,6 +13,10 @@ module.exports = {
         'light-blue': '#4406EC',
         'mid-blue': '#4305EB',
         'green-1': '#6FAE75',
+      },
+      screens: {
+        'xxs': '470px',
+        'mx-sm': {'max': '470px'}
       }
     },
   },
