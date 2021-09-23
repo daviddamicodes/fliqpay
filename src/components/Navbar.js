@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { VscChromeClose } from 'react-icons/vsc';
 import fliqpayLogo from '../images/fliqpay-logo.png';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,14 @@ import { useSelector } from 'react-redux';
 const Navbar = () => {
 
     const state = useSelector((state) => state.details)
+
+    const history = useHistory();
+
+    const handleRefresh = () => {
+        history.push('/');
+        window.location.reload()
+    }
+
     return (
         <nav className="bg-white flex justify-center items-center w-screen h-20">
             <div className={`flex justify-between items-center lg:w-3/5 w-full h-full px-6`}>
@@ -38,7 +46,7 @@ const Navbar = () => {
                                 Rec
                             </NavLink>
                         </li>
-                        <li className={`mr-5 sm:mr-10 md:mr-20 font-medium text-sm -ml-0 ${state.navTextColor3}`}>
+                        <li className={`mr-5 sm:mr-10 md:mr-20 font-medium text-sm -ml-3 mx-sm:ml-0 ${state.navTextColor3}`}>
                             <NavLink exact to="/review" className="mx-sm:hidden">
                                 Review
                             </NavLink>
@@ -56,7 +64,9 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
-                <VscChromeClose className="text-2xl text-gray-400" />
+                <Link to="" onClick={handleRefresh}>
+                    <VscChromeClose className="text-2xl text-gray-400" />
+                </Link>
             </div>
         </nav>
     )

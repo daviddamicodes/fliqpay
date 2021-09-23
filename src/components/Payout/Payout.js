@@ -67,15 +67,6 @@ const Payout = () => {
         })
     }
 
-    // const handleRateChange = () => {
-    //     getExchangeRates();
-    //     // console.log(input.fromCurrency)
-    //     // console.log(input.toCurrency)
-    //     const index = input.currenciesKeys.findIndex(element => element === (input.toCurrency))
-    //     setInput({...input, conversionRate: input.exchangeRates[index]})
-    //     console.log(input.exchangeRates[index])
-    // }
-
     const handleRates = () => {
         const valNum = input.youSend.length === 0 ? 1 : parseFloat(input.youSend)
         const fee = (valNum * 0.00369).toFixed(2);
