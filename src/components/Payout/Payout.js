@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setPayout } from '../../redux/actions/detailsActions';
+import Select from 'react-select'
 // import { numFormat } from '../NumberFormat';
 
 const Payout = () => {
@@ -21,7 +22,9 @@ const Payout = () => {
         displayRates: false,
     })
 
-    const [conversionRate, setConversionRate] = useState()
+    const [conversionRate, setConversionRate] = useState();
+
+    const [countArray, setCountArray]  = useState([])
 
     const dispatch = useDispatch()
 
@@ -59,13 +62,32 @@ const Payout = () => {
     }
     
     
-    const handleSelect = (e) => {
-        const {name, value} = e.target;
+    const handleFromSelect = (e) => {
+        const {value} = e;
         setInput({
             ...input, 
-            [name]: value
+            fromCurrency: value
         })
+        console.log(e)
     }
+    
+    const handleToSelect = (e) => {
+        const {value} = e;
+        setInput({
+            ...input, 
+            fromCurrency: value
+        })
+        console.log(e)
+    }
+
+        
+    const options = input.currenciesKeys.map(currency => {
+        return { value: currency, label: currency, key: currency }
+    })
+
+    // setCountArray(options)
+    // console.log(options)
+    // console.log(countArray)
 
     const handleRates = () => {
         const valNum = input.youSend.length === 0 ? 1 : parseFloat(input.youSend)
@@ -89,13 +111,41 @@ const Payout = () => {
                 displayRates: true,
             })
         }
-        // if (input.youSend !== "") {setInput(...input, input.disabled = false)}
     }
     
     console.log(input)
     
     const handleDispatch = () => {
         dispatch(setPayout(input))
+    }
+
+    const customStyles = {
+        option: (provided, state) => ({
+          ...provided,
+          borderBottom: '1px solid #f2f2f2',
+          color: '#372271',
+        //   padding: 20,
+        }),
+        control: () => ({
+          // none of react-select's styles are passed to <Control />
+          width: 100,
+        }),
+        singleValue: (provided, state) => {
+          const opacity = state.isDisabled ? 0.5 : 1;
+          const transition = 'opacity 300ms';
+      
+          return { ...provided, opacity, transition,
+            color: '#372271',
+          };
+        },
+        dropdownIndicator: (provided, state) => ({
+          ...provided,
+          color: '#372271',
+        }),
+        container: (provided, state) => ({
+            ...provided,
+            flex: 1,
+          }),
     }
 
 
@@ -107,7 +157,17 @@ const Payout = () => {
                 <div className="flex relative">
                     <input name="youSend" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
                     <label htmlFor="youSend" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">You Send</label>
-                    <select name="fromCurrency" value={input.fromCurrency.toLocaleString()} id="" onChange={handleSelect} className="flex-1 p-2 bg-gray-1 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
+                    <Select 
+                        name="fromCurrency" 
+                        // value={input.fromCurrency.toLocaleString()} 
+                        options={options}
+                        styles={customStyles}
+                        onChange={handleFromSelect} 
+                        placeholder="Sel"
+                        className="select-box flex-1 bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
+                    >
+                    </Select>
+                    {/* <select name="fromCurrency" value={input.fromCurrency.toLocaleString()} id="" onChange={handleSelect} className="flex-1 p-2 bg-gray-1 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
                         {
                             input.currenciesKeys.map(currency => 
                                 <option value={currency} key={currency} class="">
@@ -115,7 +175,7 @@ const Payout = () => {
                                 </option>
                             )
                         }
-                    </select>
+                    </select> */}
                 </div>
                 <div className="px-2 py-2 relative">
                     {
@@ -146,7 +206,7 @@ const Payout = () => {
                 <div className="flex relative">
                     <input name="recipientGets" value={input.recipientGets} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
                     <label htmlFor="recipientGets" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">Recipient gets</label>
-                    <select name="toCurrency" value={input.toCurrency} id="" onChange={handleSelect} className="flex-1 p-2 bg-gray-1 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
+                    <select name="toCurrency" value={input.toCurrency} id="" onChange={handleToSelect} className="flex-1 p-2 bg-gray-1 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
                         {
                             input.currenciesKeys.map(currency => 
                                 <option value={currency} key={currency}>
