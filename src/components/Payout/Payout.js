@@ -16,6 +16,8 @@ const Payout = () => {
         payoutDisabled: true,
         fromCurrency: 'USD',
         toCurrency: 'EUR',
+        fromCountryFlag: 'https://www.countryflags.io/eu/flat/32.png',
+        toCountryFlag: 'https://www.countryflags.io/us/flat/32.png',
         currenciesKeys: [],
         // conversionRate: '1',
         exchangeRates: [],
@@ -63,26 +65,30 @@ const Payout = () => {
     
     
     const handleFromSelect = (e) => {
-        const {value} = e;
+        const {value, flag} = e;
         setInput({
             ...input, 
-            fromCurrency: value
+            fromCurrency: value,
+            fromCountryFlag: flag
         })
         console.log(e)
     }
     
     const handleToSelect = (e) => {
-        const {value} = e;
+        const {value, flag} = e;
         setInput({
             ...input, 
-            fromCurrency: value
+            fromCurrency: value,
+            toCountryFlag: flag
         })
         console.log(e)
     }
 
         
     const options = input.currenciesKeys.map(currency => {
-        return { value: currency, label: currency, key: currency }
+        const currencyLC = currency.toLowerCase().substring(0, 2);
+        // console.log(currencyLC)
+        return { value: currency, label: currency, key: currency, flag: `https://www.countryflags.io/${currencyLC}/flat/64.png` }
     })
 
     // setCountArray(options)
@@ -129,6 +135,7 @@ const Payout = () => {
         control: () => ({
           // none of react-select's styles are passed to <Control />
           width: 100,
+          display: 'flex',
         }),
         singleValue: (provided, state) => {
           const opacity = state.isDisabled ? 0.5 : 1;
@@ -142,10 +149,12 @@ const Payout = () => {
           ...provided,
           color: '#372271',
         }),
+        indicatorSeparator: (provided, state) => ({
+            display: 'none'
+        }),
         container: (provided, state) => ({
             ...provided,
-            flex: 1,
-          }),
+        }),
     }
 
 
@@ -155,27 +164,23 @@ const Payout = () => {
                 <h4 className="font-semibold text-md mb-1 text-purple-900">One-time payout</h4>
                 <h4 className="text-xs mb-4 text-purple-900 text-opacity-70">Send money internationally</h4>
                 <div className="flex relative">
-                    <input name="youSend" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="youSend" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
                     <label htmlFor="youSend" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">You Send</label>
-                    <Select 
-                        name="fromCurrency" 
-                        // value={input.fromCurrency.toLocaleString()} 
-                        options={options}
-                        styles={customStyles}
-                        onChange={handleFromSelect} 
-                        placeholder="Sel"
-                        className="select-box flex-1 bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
-                    >
-                    </Select>
-                    {/* <select name="fromCurrency" value={input.fromCurrency.toLocaleString()} id="" onChange={handleSelect} className="flex-1 p-2 bg-gray-1 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
-                        {
-                            input.currenciesKeys.map(currency => 
-                                <option value={currency} key={currency} class="">
-                                    {currency}
-                                </option>
-                            )
-                        }
-                    </select> */}
+                    <div className="flex flex-1 relative">
+                        <Select 
+                            name="fromCurrency"
+                            options={options}
+                            styles={customStyles}
+                            onChange={handleFromSelect} 
+                            placeholder="Sel"
+                            className="select-box flex flex-1 justify-end bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
+                        >
+                            {/* <div className="w-8 h-8 bg-blue-500 rounded-full absolute"></div> */}
+                        </Select>
+                        <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute transform translate-x-2/4 translate-y-2/4 overflow-hidden">
+                            <img src={input.fromCountryFlag} alt={input.fromCurrency} className="object-cover max-w-none transform scale-150" />
+                        </div>
+                    </div>
                 </div>
                 <div className="px-2 py-2 relative">
                     {
@@ -204,9 +209,24 @@ const Payout = () => {
                     }
                 </div>
                 <div className="flex relative">
-                    <input name="recipientGets" value={input.recipientGets} type="text" required className="h-14 w-9/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="recipientGets" value={input.recipientGets} type="text" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
                     <label htmlFor="recipientGets" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">Recipient gets</label>
-                    <select name="toCurrency" value={input.toCurrency} id="" onChange={handleToSelect} className="flex-1 p-2 bg-gray-1 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
+                    <div className="flex flex-1 relative">
+                        <Select 
+                            name="toCurrency"
+                            options={options}
+                            styles={customStyles}
+                            onChange={handleToSelect} 
+                            placeholder="Sel"
+                            className="select-box flex flex-1 justify-end bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
+                        >
+                            {/* <div className="w-8 h-8 bg-blue-500 rounded-full absolute"></div> */}
+                        </Select>
+                        <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute transform translate-x-2/4 translate-y-2/4 overflow-hidden">
+                            <img src={input.toCountryFlag} alt={input.toCurrency} className="object-cover max-w-none transform scale-150" />
+                        </div>
+                    </div>
+                    {/* <select name="toCurrency" value={input.toCurrency} id="" onChange={handleToSelect} className="flex-1 p-2 bg-gray-1 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
                         {
                             input.currenciesKeys.map(currency => 
                                 <option value={currency} key={currency}>
@@ -214,7 +234,7 @@ const Payout = () => {
                                 </option>
                             )
                         }
-                    </select>
+                    </select> */}
                 </div>
                 <div className="flex mt-6">
                     <button className="font-medium text-xs py-4 px-6 bg-white text-purple-700 border border-purple-700 mr-4 flex-grow rounded-md" onClick={handleRates}>Compare Rates</button>
