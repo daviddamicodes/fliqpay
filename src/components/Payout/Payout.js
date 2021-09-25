@@ -26,8 +26,6 @@ const Payout = () => {
 
     const [conversionRate, setConversionRate] = useState();
 
-    const [countArray, setCountArray]  = useState([])
-
     const dispatch = useDispatch()
 
     const getRatesData = async () => {
@@ -61,8 +59,7 @@ const Payout = () => {
             ...input, 
             [name]: value
         });
-    }
-    
+    }  
     
     const handleFromSelect = (e) => {
         const {value, flag} = e;
@@ -78,22 +75,16 @@ const Payout = () => {
         const {value, flag} = e;
         setInput({
             ...input, 
-            fromCurrency: value,
+            toCurrency: value,
             toCountryFlag: flag
         })
         console.log(e)
     }
-
-        
+       
     const options = input.currenciesKeys.map(currency => {
         const currencyLC = currency.toLowerCase().substring(0, 2);
-        // console.log(currencyLC)
         return { value: currency, label: currency, key: currency, flag: `https://www.countryflags.io/${currencyLC}/flat/64.png` }
     })
-
-    // setCountArray(options)
-    // console.log(options)
-    // console.log(countArray)
 
     const handleRates = () => {
         const valNum = input.youSend.length === 0 ? 1 : parseFloat(input.youSend)
@@ -172,12 +163,13 @@ const Payout = () => {
                             options={options}
                             styles={customStyles}
                             onChange={handleFromSelect} 
-                            placeholder="Sel"
+                            placeholder=""
                             className="select-box flex flex-1 justify-end bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
                         >
                             {/* <div className="w-8 h-8 bg-blue-500 rounded-full absolute"></div> */}
                         </Select>
-                        <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute transform translate-x-2/4 translate-y-2/4 overflow-hidden">
+                        {/* <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute transform translate-x-2/4 translate-y-2/4 overflow-hidden"> */}
+                        <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute top-2/4 transform translate-x-2/4 -mt-3 overflow-hidden">
                             <img src={input.fromCountryFlag} alt={input.fromCurrency} className="object-cover max-w-none transform scale-150" />
                         </div>
                     </div>
@@ -209,7 +201,7 @@ const Payout = () => {
                     }
                 </div>
                 <div className="flex relative">
-                    <input name="recipientGets" value={input.recipientGets} type="text" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="recipientGets" value={input.recipientGets} readOnly type="text" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
                     <label htmlFor="recipientGets" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">Recipient gets</label>
                     <div className="flex flex-1 relative">
                         <Select 
@@ -217,12 +209,12 @@ const Payout = () => {
                             options={options}
                             styles={customStyles}
                             onChange={handleToSelect} 
-                            placeholder="Sel"
+                            placeholder=""
                             className="select-box flex flex-1 justify-end bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
                         >
                             {/* <div className="w-8 h-8 bg-blue-500 rounded-full absolute"></div> */}
                         </Select>
-                        <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute transform translate-x-2/4 translate-y-2/4 overflow-hidden">
+                        <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute top-2/4 transform translate-x-2/4 -mt-3 overflow-hidden">
                             <img src={input.toCountryFlag} alt={input.toCurrency} className="object-cover max-w-none transform scale-150" />
                         </div>
                     </div>

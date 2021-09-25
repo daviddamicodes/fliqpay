@@ -65,8 +65,8 @@ const RecipientPage = () => {
                 <h4 className="font-semibold text-sm pb-3 mb-2 border-b-2 border-gray-1 text-purple-900">Bank details</h4>
                 <div className="flex flex-col mb-4">
                     <div className="flex mb-6">
-                        <button toggle={toggle} class={toggle ? "text-xs font-semibold text-purple-900 bg-white px-3 py-3 border-b-2 border-purple-900 transition-all duration-200" : "text-xs font-normal text-gray-700 bg-white px-3 py-3 transition-all duration-200"} onClick={handleToggle}>Inside Europe</button>
-                        <button toggle={toggle} class={toggle ? "text-xs font-normal text-gray-700 bg-white px-3 py-3 transition-all duration-200" : "text-xs font-semibold text-purple-900 bg-white px-3 py-3 border-b-2 border-purple-900 transition-all duration-200"} onClick={handleToggle}>Outside Europe</button>
+                        <button toggle={toggle} className={toggle ? "text-xs font-semibold text-purple-900 bg-white px-3 py-3 border-b-2 border-purple-900 transition-all duration-200" : "text-xs font-normal text-gray-700 bg-white px-3 py-3 transition-all duration-200"} onClick={handleToggle}>Inside Europe</button>
+                        <button toggle={toggle} className={toggle ? "text-xs font-normal text-gray-700 bg-white px-3 py-3 transition-all duration-200" : "text-xs font-semibold text-purple-900 bg-white px-3 py-3 border-b-2 border-purple-900 transition-all duration-200"} onClick={handleToggle}>Outside Europe</button>
                     </div>
                     <label htmlFor="ibanAcct" className="pointer-events-none text-xs text-gray-500 mb-1">IBAN / Account Number</label>
                     <input name="ibanAcct" type="text" onChange={handleIbanInput} required className=" w-5/5 px-3.5 py-3 text-sm rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900 mb-3" autoComplete="off" placeholder="01234567891" />
