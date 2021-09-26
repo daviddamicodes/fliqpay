@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setPayout } from '../../redux/actions/detailsActions';
-import Select, {components} from 'react-select'
+import Select from 'react-select'
 // import { numFormat } from '../NumberFormat';
 
 const Payout = () => {
