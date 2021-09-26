@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setPay } from '../../redux/actions/detailsActions';
 import { numFormat } from '../NumberFormat';
+import Modal from '../Modal'
 
 const ReviewTransfer = () => {
 
@@ -16,7 +17,7 @@ const ReviewTransfer = () => {
     }
 
     return (
-        <div className="bg-gray-50 h-screen pt-14">
+        <div className="bg-gray-50 h-screen pt-14 relative">
             <div className="bg-white w-470 rounded-lg px-6 py-8 mx-auto">
                 <h4 className="font-semibold text-md mb-4 pb-2 border-b-2 border-gray-50 text-purple-900">Review details of your transfer</h4>
                 <div className="py-3">
@@ -65,6 +66,7 @@ const ReviewTransfer = () => {
                 </div>
                 <button className="w-full font-medium text-xs py-4 px-6 bg-green-1 text-white flex-grow rounded-md" onClick={paymentAlert}>Continue</button>
             </div>
+            <Modal />
         </div>
     )
 }

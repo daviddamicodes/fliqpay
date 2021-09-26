@@ -118,7 +118,6 @@ const Payout = () => {
           ...provided,
           borderBottom: '1px solid #f2f2f2',
           color: '#372271',
-        //   padding: 20,
         }),
         control: () => ({
           // none of react-select's styles are passed to <Control />
@@ -224,9 +223,9 @@ const Payout = () => {
                         }
                     </select> */}
                 </div>
-                <div className="flex mt-6">
-                    <button className="font-medium text-xs py-4 px-6 bg-white text-purple-700 border border-purple-700 mr-4 flex-grow rounded-md" onClick={handleRates}>Compare Rates</button>
-                    <Link to="/recipient" className=" flex items-center justify-center flex-grow"><button className={`font-medium text-xs py-4 px-6 w-full text-white rounded-md ${input.payoutDisabled ? "bg-mid-blue opacity-50" : "bg-mid-blue"}`} onClick={handleDispatch} disabled={input.payoutDisabled}>Continue</button></Link>
+                <div className="grid grid-cols-2 gap-4 mt-6">
+                    <button className="font-medium text-xs py-4 px-4 bg-white text-purple-700 border border-purple-700 flex-grow rounded-md" onClick={handleRates}>Compare Rates</button>
+                    <Link to="/recipient" className=" flex items-center justify-center flex-grow"><button className={`font-medium text-xs py-4 px-4 w-full text-white rounded-md ${input.payoutDisabled ? "bg-mid-blue opacity-50" : "bg-mid-blue"}`} onClick={handleDispatch} disabled={input.payoutDisabled}>Continue</button></Link>
                 </div>
             </div>
         </div>
