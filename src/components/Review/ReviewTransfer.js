@@ -16,8 +16,8 @@ const ReviewTransfer = () => {
     }
 
     return (
-        <div className="bg-gray-50 h-screen flex justify-center pt-14">
-            <div className="bg-white w-470 rounded-lg px-6 py-8">
+        <div className="bg-gray-50 h-screen pt-14">
+            <div className="bg-white w-470 rounded-lg px-6 py-8 mx-auto">
                 <h4 className="font-semibold text-md mb-4 pb-2 border-b-2 border-gray-50 text-purple-900">Review details of your transfer</h4>
                 <div className="py-3">
                     <div className="flex justify-between items-end mb-4">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setPayout } from '../../redux/actions/detailsActions';
-import Select from 'react-select'
+import Select, {components} from 'react-select'
 // import { numFormat } from '../NumberFormat';
 
 const Payout = () => {
@@ -38,11 +38,10 @@ const Payout = () => {
         setInput({...input, 
             currenciesKeys: Object.keys(currData), 
             exchangeRates:  Object.values(currData),
-            fromCurrency: input.fromCurrency, 
-            toCurrency: input.toCurrency,
+            // fromCurrency: input.fromCurrency, 
+            // toCurrency: input.toCurrency,
             // conversionRate: input.exchangeRates[index]
         })
-        console.log(input)
     }
     
 
@@ -68,7 +67,6 @@ const Payout = () => {
             fromCurrency: value,
             fromCountryFlag: flag
         })
-        console.log(e)
     }
     
     const handleToSelect = (e) => {
@@ -78,7 +76,6 @@ const Payout = () => {
             toCurrency: value,
             toCountryFlag: flag
         })
-        console.log(e)
     }
        
     const options = input.currenciesKeys.map(currency => {
@@ -150,12 +147,12 @@ const Payout = () => {
 
 
     return (
-        <div className="bg-gray-50 h-screen flex justify-center pt-14">
-            <div className="bg-white w-470 rounded-lg px-6 py-8">
+        <div className="bg-gray-50 h-screen pt-14">
+            <div className="bg-white w-470 rounded-lg px-6 py-8 mx-auto">
                 <h4 className="font-semibold text-md mb-1 text-purple-900">One-time payout</h4>
                 <h4 className="text-xs mb-4 text-purple-900 text-opacity-70">Send money internationally</h4>
                 <div className="flex relative">
-                    <input name="youSend" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="youSend" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900 appearance-none" autoComplete="off" placeholder="" />
                     <label htmlFor="youSend" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">You Send</label>
                     <div className="flex flex-1 relative">
                         <Select 
@@ -164,11 +161,11 @@ const Payout = () => {
                             styles={customStyles}
                             onChange={handleFromSelect} 
                             placeholder=""
+                            defaultValue={options.find(option => option.value === input.fromCurrency)}
+                            // defaultValue={{value: "EUR", label: "EUR"}}
                             className="select-box flex flex-1 justify-end bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
                         >
-                            {/* <div className="w-8 h-8 bg-blue-500 rounded-full absolute"></div> */}
                         </Select>
-                        {/* <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute transform translate-x-2/4 translate-y-2/4 overflow-hidden"> */}
                         <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute top-2/4 transform translate-x-2/4 -mt-3 overflow-hidden">
                             <img src={input.fromCountryFlag} alt={input.fromCurrency} className="object-cover max-w-none transform scale-150" />
                         </div>
@@ -201,7 +198,7 @@ const Payout = () => {
                     }
                 </div>
                 <div className="flex relative">
-                    <input name="recipientGets" value={input.recipientGets} readOnly type="text" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900" autoComplete="off" placeholder="" />
+                    <input name="recipientGets" value={input.recipientGets} readOnly type="text" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900 appearance-none" autoComplete="off" placeholder="" />
                     <label htmlFor="recipientGets" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">Recipient gets</label>
                     <div className="flex flex-1 relative">
                         <Select 
@@ -212,7 +209,6 @@ const Payout = () => {
                             placeholder=""
                             className="select-box flex flex-1 justify-end bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
                         >
-                            {/* <div className="w-8 h-8 bg-blue-500 rounded-full absolute"></div> */}
                         </Select>
                         <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute top-2/4 transform translate-x-2/4 -mt-3 overflow-hidden">
                             <img src={input.toCountryFlag} alt={input.toCurrency} className="object-cover max-w-none transform scale-150" />
