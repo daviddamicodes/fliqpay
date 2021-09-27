@@ -20,6 +20,9 @@ module.exports = {
       },
       fontSize: {
         '1xs': '.65rem',
+      },
+      maxWidth: {
+        '470': '470px',
       }
     },
   },

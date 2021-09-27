@@ -34,6 +34,8 @@ export const detailsReducer = (state = initialState, {type, payload}) => {
             return {...state, email, fullName, swiftBic, ibanAcct, payoutProgressBar: 'w-2/3', payoutProgressDot: 'left-2/3', navTextColor2: 'text-light-blue', navTextColor3: 'text-gray-500'}
         case ActionTypes.PAYOUT:
             return {...state, payoutProgressBar: 'w-full', payoutProgressDot: 'left-full', navTextColor3: 'text-light-blue', navTextColor4: 'text-light-blue'}
+        case ActionTypes.REFILL_FORM:
+            return {...state, payoutProgressBar: 'w-1/3', payoutProgressDot: 'left-1/3', navTextColor3: 'text-gray-300', navTextColor4: 'text-gray-300', navTextColor2: 'text-gray-500'}
         default:
             return state
     }

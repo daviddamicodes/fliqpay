@@ -1,24 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { setPay } from '../../redux/actions/detailsActions';
 import { numFormat } from '../NumberFormat';
 import Modal from '../Modal'
 
 const ReviewTransfer = () => {
+    const [showModal, setShowModal] = useState(false)
+
+    const openModal = () => {
+        setShowModal(prev => !prev)
+    }
 
     const state = useSelector((state) => state.details);
 
-    const dispatch = useDispatch()
-
-    const paymentAlert = () => {
-        dispatch(setPay())
-        // alert("Payment Successful")
-    }
-
     return (
         <div className="bg-gray-50 h-screen pt-14 relative">
-            <div className="bg-white w-470 rounded-lg px-6 py-8 mx-auto">
+            <div className="bg-white max-w-470 rounded-lg px-6 py-8 mx-auto">
                 <h4 className="font-semibold text-md mb-4 pb-2 border-b-2 border-gray-50 text-purple-900">Review details of your transfer</h4>
                 <div className="py-3">
                     <div className="flex justify-between items-end mb-4">
@@ -64,9 +60,9 @@ const ReviewTransfer = () => {
                         ) : <></>
                     }
                 </div>
-                <button className="w-full font-medium text-xs py-4 px-6 bg-green-1 text-white flex-grow rounded-md" onClick={paymentAlert}>Continue</button>
+                <button className="w-full font-medium text-xs py-4 px-6 bg-green-1 text-white flex-grow rounded-md" onClick={openModal}>Continue</button>
             </div>
-            <Modal />
+            <Modal showModal={showModal} setShowModal={setShowModal} openModal={openModal} />
         </div>
     )
 }

@@ -19,3 +19,9 @@ export const setPay = () => {
         type: ActionTypes.PAYOUT
     }
 }
+
+export const setRefill = () => {
+    return {
+        type: ActionTypes.REFILL_FORM
+    }
+}

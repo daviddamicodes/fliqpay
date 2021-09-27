@@ -49,7 +49,7 @@ const RecipientPage = () => {
 
     return (
         <div className="bg-gray-bg h-screen pt-14 border-gray-1 border-2">
-            <div className="bg-white w-470 rounded-lg px-6 py-8 mx-auto">
+            <div className="bg-white max-w-470 rounded-lg px-6 py-8 mx-auto">
                 <div className="font-semibold text-md mb-8 pb-2 border-b-2 border-gray-1 text-purple-900">
                     <h4 className="font-semibold text-md mb-1 text-purple-900">Your Recipient</h4>
                     <h4 className="text-xs text-purple-700 text-opacity-70">Who are you sending money to?</h4>

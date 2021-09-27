@@ -147,7 +147,7 @@ const Payout = () => {
 
     return (
         <div className="bg-gray-50 h-screen pt-14">
-            <div className="bg-white w-470 rounded-lg px-6 py-8 mx-auto">
+            <div className="bg-white max-w-470 rounded-lg px-6 py-8 mx-auto">
                 <h4 className="font-semibold text-md mb-1 text-purple-900">One-time payout</h4>
                 <h4 className="text-xs mb-4 text-purple-900 text-opacity-70">Send money internationally</h4>
                 <div className="flex relative">
