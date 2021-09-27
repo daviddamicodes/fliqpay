@@ -52,7 +52,7 @@ const Modal = ({ showModal, setShowModal, openModal }) => {
                 <div className="bg-black bg-opacity-50 w-full absolute top-0 h-full flex items-center justify-center">
                     <animated.div style={animation}>
                         {
-                            (state.fullName !== "") ? (
+                            (state.fullName !== "" && state.email !== "") ? (
                                 <div className="w-72 bg-white text-center p-4 rounded-lg relative">
                                     <div className="py-4 px-8 border-gray-1 border-2 appearance-none mb-4">
                                         <h4 className="text-1xs text-gray-400">Total Amount Paid</h4>

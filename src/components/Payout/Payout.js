@@ -13,7 +13,6 @@ const Payout = () => {
         transferFee: '',
         convertedAmount: '',
         guaranteedRate: '',
-        payoutDisabled: true,
         fromCurrency: 'USD',
         toCurrency: 'EUR',
         fromCountryFlag: 'https://www.countryflags.io/eu/flat/32.png',
@@ -21,10 +20,13 @@ const Payout = () => {
         currenciesKeys: [],
         // conversionRate: '1',
         exchangeRates: [],
-        displayRates: false,
     })
 
     const [conversionRate, setConversionRate] = useState();
+
+    const [displayRates, setDisplayRates] = useState(false);
+
+    const [payoutDisabled, setPayoutDisabled] = useState(true)
 
     const dispatch = useDispatch()
 
@@ -38,9 +40,6 @@ const Payout = () => {
         setInput({...input, 
             currenciesKeys: Object.keys(currData), 
             exchangeRates:  Object.values(currData),
-            // fromCurrency: input.fromCurrency, 
-            // toCurrency: input.toCurrency,
-            // conversionRate: input.exchangeRates[index]
         })
     }
     
@@ -101,11 +100,29 @@ const Payout = () => {
                 convertedAmount: atConvert,
                 guaranteedRate: grHour,
                 recipientGets: totalAmount,
-                payoutDisabled: false,
-                displayRates: true,
             })
+            setDisplayRates(true);
+        } else {
+            setInput({
+                ...input,
+                recipientGets: '',
+            })
+            setDisplayRates(false);
+            setPayoutDisabled(true);
         }
     }
+
+    useEffect(() => {
+        if (input.youSend !== "") {
+            handleRates();
+            setDisplayRates(true);
+            setPayoutDisabled(false)
+        } else {
+            setDisplayRates(false);
+            setPayoutDisabled(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [input.youSend])
     
     console.log(input)
     
@@ -151,7 +168,7 @@ const Payout = () => {
                 <h4 className="font-semibold text-md mb-1 text-purple-900">One-time payout</h4>
                 <h4 className="text-xs mb-4 text-purple-900 text-opacity-70">Send money internationally</h4>
                 <div className="flex relative">
-                    <input name="youSend" value={input.youSend} onChange={handleInput} type="text" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900 appearance-none" autoComplete="off" placeholder="" />
+                    <input name="youSend" value={input.youSend} onChange={handleInput} type="number" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900 appearance-none" autoComplete="off" placeholder="" />
                     <label htmlFor="youSend" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">You Send</label>
                     <div className="flex flex-1 relative">
                         <Select 
@@ -160,8 +177,8 @@ const Payout = () => {
                             styles={customStyles}
                             onChange={handleFromSelect} 
                             placeholder=""
-                            defaultValue={options.find(option => option.value === input.fromCurrency)}
-                            // defaultValue={{value: "EUR", label: "EUR"}}
+                            // defaultValue={options.find(option => option.value === input.fromCurrency)}
+                            defaultValue={{value: "EUR", label: "EUR"}}
                             className="select-box flex flex-1 justify-end bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
                         >
                         </Select>
@@ -172,22 +189,22 @@ const Payout = () => {
                 </div>
                 <div className="px-2 py-2 relative">
                     {
-                        input.displayRates ? (
+                        displayRates ? (
                             <>
                                 <div className="absolute top-0 left-4 h-full w-0.5 bg-gray-1"></div>
                                 <div className="flex items-center mb-2">
                                     <div className="bg-gray-1 text-gray-400 text-xs h-5 w-5 rounded-full flex items-center justify-center mr-2 z-10">-</div>
-                                    <h4 className="font-semibold text-xs text-gray-400 w-3/12 z-10">{input.transferFee} {input.fromCurrency}</h4>
+                                    <h4 className="font-semibold text-xs text-gray-400 min-w-3/12 mr-3 z-10">{input.transferFee} {input.fromCurrency}</h4>
                                     <span className="font-medium text-xs text-gray-400">Transfer fee</span>
                                 </div>
                                 <div className="flex items-center mb-2">
                                     <div className="bg-gray-1 text-gray-400 text-xs h-5 w-5 rounded-full flex items-center justify-center mr-2 z-10">=</div>
-                                    <h4 className="font-medium text-xs text-gray-400 w-3/12 z-10">{input.convertedAmount} {input.toCurrency}</h4>
+                                    <h4 className="font-medium text-xs text-gray-400 min-w-3/12 mr-3 z-10">{input.convertedAmount} {input.toCurrency}</h4>
                                     <span className="font-medium text-xs text-gray-400">Amount we'll convert</span>
                                 </div>
                                 <div className="flex items-center">
                                     <div className="bg-gray-1 text-gray-400 text-xs h-5 w-5 rounded-full flex items-center justify-center mr-2 z-10">x</div>
-                                    <h4 className="font-medium text-xs text-purple-900 w-3/12 z-10">{input.guaranteedRate}</h4>
+                                    <h4 className="font-medium text-xs text-purple-900 min-w-3/12 mr-3 z-10">{input.guaranteedRate}</h4>
                                     <span className="font-medium text-xs text-purple-900">Guaranteed rate (1hr)</span>
                                 </div>
                             </>
@@ -197,7 +214,7 @@ const Payout = () => {
                     }
                 </div>
                 <div className="flex relative">
-                    <input name="recipientGets" value={input.recipientGets} readOnly type="text" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900 appearance-none" autoComplete="off" placeholder="" />
+                    <input name="recipientGets" value={input.recipientGets} readOnly type="number" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900 appearance-none" autoComplete="off" placeholder="" />
                     <label htmlFor="recipientGets" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">Recipient gets</label>
                     <div className="flex flex-1 relative">
                         <Select 
@@ -206,6 +223,7 @@ const Payout = () => {
                             styles={customStyles}
                             onChange={handleToSelect} 
                             placeholder=""
+                            defaultValue={{value: "NGN", label: "NGN"}}
                             className="select-box flex flex-1 justify-end bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
                         >
                         </Select>
@@ -225,7 +243,7 @@ const Payout = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4 mt-6">
                     <button className="font-medium text-xs py-4 px-4 bg-white text-purple-700 border border-purple-700 flex-grow rounded-md" onClick={handleRates}>Compare Rates</button>
-                    <Link to="/recipient" className=" flex items-center justify-center flex-grow"><button className={`font-medium text-xs py-4 px-4 w-full text-white rounded-md ${input.payoutDisabled ? "bg-mid-blue opacity-50" : "bg-mid-blue"}`} onClick={handleDispatch} disabled={input.payoutDisabled}>Continue</button></Link>
+                    <Link to="/recipient" className=" flex items-center justify-center flex-grow"><button className={`font-medium text-xs py-4 px-4 w-full text-white rounded-md ${payoutDisabled ? "bg-mid-blue opacity-50" : "bg-mid-blue"}`} onClick={handleDispatch} disabled={input.payoutDisabled}>Continue</button></Link>
                 </div>
             </div>
         </div>

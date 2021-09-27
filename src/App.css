@@ -2,5 +2,41 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Sailec', sans-serif;
 }
+
+@font-face {
+  font-family: "Sailec";
+  src: url("./fonts/sailec/SailecHairline.ttf") format("truetype");
+  font-weight: extralightlight;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sailec";
+  src: url("./fonts/sailec/SailecThin.ttf") format("truetype");
+  font-weight: thin;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sailec";
+  src: url("./fonts/sailec/SailecRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sailec";
+  src: url("./fonts/sailec/SailecMedium.ttf") format("truetype");
+  font-weight: medium;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Sailec";
+  src: url("./fonts/sailec/SailecBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+

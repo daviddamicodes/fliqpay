@@ -34,8 +34,6 @@ const RecipientPage = () => {
             // [name]: (value).trim, 
             disabled: false
         })
-        // if (value.length && input.fullName.length && input.email.length > 0) {
-        // }
     }
     
     const handleDispatch = () => {
@@ -69,7 +67,7 @@ const RecipientPage = () => {
                         <button toggle={toggle} className={toggle ? "text-xs font-normal text-gray-700 bg-white px-3 py-3 transition-all duration-200" : "text-xs font-semibold text-purple-900 bg-white px-3 py-3 border-b-2 border-purple-900 transition-all duration-200"} onClick={handleToggle}>Outside Europe</button>
                     </div>
                     <label htmlFor="ibanAcct" className="pointer-events-none text-xs text-gray-500 mb-1">IBAN / Account Number</label>
-                    <input name="ibanAcct" type="text" onChange={handleIbanInput} required className=" w-5/5 px-3.5 py-3 text-sm rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900 mb-3 appearance-none" autoComplete="off" placeholder="01234567891" />
+                    <input name="ibanAcct" type="number" onChange={handleIbanInput} required className=" w-5/5 px-3.5 py-3 text-sm rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900 mb-3 appearance-none" autoComplete="off" placeholder="01234567891" />
                         {
                             toggle ? (
                                 <></>
