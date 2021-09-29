@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setPayout } from '../../redux/actions/detailsActions';
 import Select, { components } from 'react-select';
-import SelectOptions from '../SelectOptions';
+// import SelectOptions from '../SelectOptions';
 import {RiArrowDownSFill} from 'react-icons/ri';
 // import { numFormat } from '../NumberFormat';
 
@@ -43,13 +43,13 @@ const Payout = () => {
             currenciesKeys: Object.keys(currData), 
             exchangeRates:  Object.values(currData),
         })
+        const index = (input.currenciesKeys).findIndex(element => element === (input.toCurrency));
+        setConversionRate(input.exchangeRates[index])
     }
     
 
     useEffect(() => {
         getRatesData();
-        const index = (input.currenciesKeys).findIndex(element => element === (input.toCurrency));
-        setConversionRate(input.exchangeRates[index])
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [input.fromCurrency, input.toCurrency])
 
@@ -93,6 +93,7 @@ const Payout = () => {
         console.log(atConvert)
         console.log(amtWrate)
         console.log(conversionRate)
+        console.log(fee)
         const grHour = 1.14989
         const totalAmount = (amtWrate * grHour).toFixed(2);
         if (input.youSend !== "") {
@@ -124,7 +125,7 @@ const Payout = () => {
             setPayoutDisabled(true);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [input.youSend])
+    }, [input.youSend, input.fromCurrency, input.toCurrency])
     
     console.log(input)
     
@@ -132,36 +133,6 @@ const Payout = () => {
         dispatch(setPayout(input))
     }
 
-    // const customStyles = {
-    //     option: (provided, state) => ({
-    //       ...provided,
-    //       borderBottom: '1px solid #f2f2f2',
-    //       color: '#372271',
-    //     }),
-    //     control: () => ({
-    //       // none of react-select's styles are passed to <Control />
-    //       width: 100,
-    //       display: 'flex',
-    //     }),
-    //     singleValue: (provided, state) => {
-    //       const opacity = state.isDisabled ? 0.5 : 1;
-    //       const transition = 'opacity 300ms';
-      
-    //       return { ...provided, opacity, transition,
-    //         color: '#372271',
-    //       };
-    //     },
-    //     dropdownIndicator: (provided, state) => ({
-    //       ...provided,
-    //       color: '#372271',
-    //     }),
-    //     indicatorSeparator: (provided, state) => ({
-    //         display: 'none'
-    //     }),
-    //     container: (provided, state) => ({
-    //         ...provided,
-    //     }),
-    // }
 
     const customStyles = {
         option: (provided, state) => ({
@@ -170,7 +141,6 @@ const Payout = () => {
           color: '#372271',
         }),
         control: () => ({
-          // none of react-select's styles are passed to <Control />
           width: '100%',
           display: 'flex',
           padding: '0 5%',
@@ -192,7 +162,6 @@ const Payout = () => {
         }),
         valueContainer: (provided, state) => ({
             ...provided,
-            // width: '100%'
         }),
     }
 
@@ -251,7 +220,7 @@ const Payout = () => {
                             onChange={handleFromSelect} 
                             placeholder=""
                             // defaultValue={options.find(option => option.value === input.fromCurrency)}
-                            defaultValue={{value: "EUR", label: "EUR", flag: `https://www.countryflags.io/eu/flat/64.png`}}
+                            // defaultValue={{value: "USD", label: "USD", flag: `https://www.countryflags.io/us/flat/64.png`}}
                             className="select-box flex flex-1 justify-end bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
                         >
                         </Select>
@@ -290,16 +259,15 @@ const Payout = () => {
                         <Select 
                             name="toCurrency"
                             options={options}
+                            formatOptionLabel={formatOptionLabel}
                             styles={customStyles}
+                            components={{ DropdownIndicator }}
                             onChange={handleToSelect} 
                             placeholder=""
-                            defaultValue={{value: "USD", label: "USD"}}
+                            // defaultValue={{value: "EUR", label: "EUR", flag: `https://www.countryflags.io/eu/flat/64.png`}}
                             className="select-box flex flex-1 justify-end bg-gray-1 font-medium rounded-br-lg rounded-tr-lg -ml-2"
                         >
                         </Select>
-                        <div className="flex align-center justify-center w-6 h-6 bg-blue-300 rounded-full absolute top-2/4 transform translate-x-2/4 -mt-3 overflow-hidden">
-                            <img src={input.toCountryFlag} alt={input.toCurrency} className="object-cover max-w-none transform scale-150" />
-                        </div>
                     </div>
                     {/* <select name="toCurrency" value={input.toCurrency} id="" onChange={handleToSelect} className="flex-1 p-2 bg-gray-1 text-purple-900 font-medium rounded-br-lg rounded-tr-lg -ml-2">
                         {
@@ -311,13 +279,13 @@ const Payout = () => {
                         }
                     </select> */}
                 </div>
-                <div className="flex relative mt-2">
+                {/* <div className="flex relative mt-2">
                     <input name="recipientGets" value={input.recipientGets} readOnly type="number" required className="h-14 w-8/12 pt-5 px-3.5 text-lg rounded-lg focus:outline-none border-gray-1 border-2 text-purple-900 appearance-none" autoComplete="off" placeholder="" />
                     <label htmlFor="recipientGets" className="absolute h-full w-9/12 px-3.5 pt-2 pointer-events-none text-xs text-gray-400">Recipient gets</label>
                     <div className="flex flex-1 relative">
                         <SelectOptions input={input} />
                     </div>
-                </div>
+                </div> */}
                 <div className="grid grid-cols-2 gap-4 mt-6">
                     <button className="font-medium text-xs py-4 px-4 bg-white text-purple-700 border border-purple-700 flex-grow rounded-md" onClick={handleRates}>Compare Rates</button>
                     <Link to="/recipient" className=" flex items-center justify-center flex-grow"><button className={`font-medium text-xs py-4 px-4 w-full text-white rounded-md ${payoutDisabled ? "bg-mid-blue opacity-50" : "bg-mid-blue"}`} onClick={handleDispatch} disabled={payoutDisabled}>Continue</button></Link>
