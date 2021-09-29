@@ -173,7 +173,7 @@ const Payout = () => {
           // none of react-select's styles are passed to <Control />
           width: '100%',
           display: 'flex',
-          padding: '0 5%'
+          padding: '0 5%',
         }),
         singleValue: (provided, state) => {
           const opacity = state.isDisabled ? 0.5 : 1;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {RiArrowDownSFill} from 'react-icons/ri';
-import Select, { components } from 'react-select';
+// import Select, { components } from 'react-select';
 
 
 const SelectOptions = ({ input }) => {
